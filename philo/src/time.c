@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:45:38 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/23 17:52:12 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:57:46 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_args	*args(void)
 {
 	static t_args	args;
-	
+
 	return (&args);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:11 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/27 15:02:09 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:22:44 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,27 @@
 void	clean(void)
 {
 	int		i;
-	
+
 	i = 0;
 	while (i < args()->nb_philo)
 	{
-		//printf("thread adress: %p\tnb [%d]\n", &args()->threads[i], i);
 		if (pthread_join(args()->threads[i], NULL))
 			return ;
-		//printf("thread adress: %p\n", &args()->threads[i]);
 		i++;
 	}
 	i = 0;
 	while (i < args()->nb_philo)
 	{
-		//printf("here [%d]\n", i);
-		pthread_mutex_destroy(args()->forks + i);//i think forks locked when destroy
-		//printf("here1 [%d]\n", i);
+		pthread_mutex_destroy(args()->forks + i);
 		i++;
 	}
 	pthread_mutex_destroy(&args()->prio);
 	pthread_mutex_destroy(&args()->god);
-	free(args()->threads);//dont know
+	free(args()->threads);
 	args()->threads = NULL;
-	free(args()->forks);//dont know
+	free(args()->forks);
 	args()->forks = NULL;
-	free(args()->philos);//dont know
+	free(args()->philos);
 	args()->philos = NULL;
 }
 
@@ -57,36 +53,47 @@ bool	check_stop(void)
 
 bool	check_death(void)
 {
-	long timestamp;
-	long limit;
-	int i;
-	
+	long	timestamp;
+	long	limit;
+	int		i;
+
 	i = 0;
-	//printf("time_now: %ld\tlast meal: %d\ttime to die: %i\n", get_time(), args()->philos[i].last_meal, args()->time_to_d);
 	while (i < args()->nb_philo)
 	{
 		pthread_mutex_lock(&args()->prio);
-		if (time_now() - args()->philos[i].last_meal > args()->time_to_d)
+		if (time_now() - args()->philos[i].last_meal >= args()->time_to_d)
 		{
-			printf("%ld %d died\n", time_now(), i);
+			if (!check_stop())
+				printf("%ld %d died\n", time_now(), i);
 			pthread_mutex_unlock(&args()->prio);
 			pthread_mutex_lock(&args()->god);
 			args()->stop = true;
 			pthread_mutex_unlock(&args()->god);
 			return (true);
 		}
-		pthread_mutex_unlock(&args()->prio);	
+		pthread_mutex_unlock(&args()->prio);
 		i++;
 	}
 	return (false);
 }
 
+bool	check_meals(int meals)
+{
+	if (meals == args()->nb_philo)
+	{
+		pthread_mutex_lock(&args()->god);
+		args()->stop = true;
+		pthread_mutex_unlock(&args()->god);
+		return (true);
+	}
+	return (false);
+}
 
 void	monitor(void)
 {
 	int		i;
 	int		meals;
-	
+
 	while (1)
 	{
 		i = 0;
@@ -95,21 +102,18 @@ void	monitor(void)
 			break ;
 		if (args()->nb_times_e > 0)
 		{
-			pthread_mutex_lock(&args()->god);
+			pthread_mutex_lock(&args()->prio);
 			while (i < args()->nb_philo)
 			{
 				if (args()->philos[i].n_meals >= args()->nb_times_e)
 					meals++;
-					i++;
-				}
-			pthread_mutex_unlock(&args()->god);
-			if (meals == args()->nb_philo)
-			{
-				pthread_mutex_lock(&args()->god);
-				args()->stop = true;
-				pthread_mutex_unlock(&args()->god);
-				break ;
+				i++;
 			}
+			pthread_mutex_unlock(&args()->prio);
+			if (check_death())
+				break ;
+			if (check_meals(meals))
+				break ;
 		}
 	}
 }

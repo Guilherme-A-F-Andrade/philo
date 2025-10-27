@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:27:06 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/23 19:03:04 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:10:56 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ bool	args_pars(char **av)
 	args()->time_to_d = atoi_args(av[2]);
 	args()->time_to_e = atoi_args(av[3]);
 	args()->time_to_s = atoi_args(av[4]);
-	// printf("av[5]: %s\n", av[5]);
-	for (int i = 0; av[i]; i++)
 	if (av[5])
 	{
 		args()->nb_times_e = atoi_args(av[5]);

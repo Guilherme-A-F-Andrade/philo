@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:11 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/26 16:14:09 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:02:09 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,19 @@ void	monitor(void)
 			break ;
 		if (args()->nb_times_e > 0)
 		{
+			pthread_mutex_lock(&args()->god);
 			while (i < args()->nb_philo)
 			{
 				if (args()->philos[i].n_meals >= args()->nb_times_e)
 					meals++;
-				i++;
-			}
+					i++;
+				}
+			pthread_mutex_unlock(&args()->god);
 			if (meals == args()->nb_philo)
 			{
-				pthread_mutex_lock(&args()->prio);
+				pthread_mutex_lock(&args()->god);
 				args()->stop = true;
-				pthread_mutex_unlock(&args()->prio);
+				pthread_mutex_unlock(&args()->god);
 				break ;
 			}
 		}

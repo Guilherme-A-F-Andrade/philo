@@ -6,14 +6,13 @@
 #    By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 17:40:50 by gufreire          #+#    #+#              #
-#    Updated: 2025/10/23 19:34:53 by gufreire         ###   ########.fr        #
+#    Updated: 2025/10/29 14:55:41 by gufreire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-#-Wall -Wextra -Werror falta meter nas flags
-CFLAGS = -g -pthread
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 RM = rm -f
 ARGS = 3 410 200 200
 

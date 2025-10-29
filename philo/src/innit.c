@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:01 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/27 18:00:16 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:55:53 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ bool	innit_mutexes(void)
 
 bool	innit_structs(void)
 {
-	int		i;
-
 	args()->threads = (pthread_t *)malloc((args()->nb_philo) * 8);
 	if (!args()->threads)
 		return (false);

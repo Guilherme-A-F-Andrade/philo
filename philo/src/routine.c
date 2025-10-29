@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:32 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/27 18:08:40 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:57:01 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	one_case(t_philo *p)
 
 void	print_messages(t_philo *p, char c)
 {
+	if (args()->nb_times_e > 0 && p->n_meals >= args()->nb_times_e)
+		return ;
 	if (!check_stop() && c == 't')
 	{
 		pthread_mutex_lock(&args()->prio);
@@ -45,8 +47,8 @@ void	thinking(t_philo *p)
 {
 	if (check_stop())
 		return ;
+	usleep(100);
 	print_messages(p, 't');
-	usleep(1);
 }
 
 void	sleeping(t_philo *p)

@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:11 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/27 18:22:44 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:56:10 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ bool	check_stop(void)
 
 bool	check_death(void)
 {
-	long	timestamp;
-	long	limit;
 	int		i;
 
 	i = 0;

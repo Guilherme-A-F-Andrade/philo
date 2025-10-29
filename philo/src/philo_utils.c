@@ -6,7 +6,7 @@
 /*   By: gufreire <gufreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 17:52:11 by gufreire          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:10 by gufreire         ###   ########.fr       */
+/*   Updated: 2025/10/29 15:04:32 by gufreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	check_death(void)
 		if (time_now() - args()->philos[i].last_meal >= args()->time_to_d)
 		{
 			if (!check_stop())
-				printf("%ld %d died\n", time_now(), i);
+				printf("%ld %d died\n", time_now(), i + 1);
 			pthread_mutex_unlock(&args()->prio);
 			pthread_mutex_lock(&args()->god);
 			args()->stop = true;
